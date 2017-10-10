@@ -388,7 +388,13 @@ public class GUI implements Observer {
                 disconnectMe();
             }
         }
+        
+        public void update(){
+            card1 =  cardManager.pot.getLast();
+            card2 = cardManager.pot.getLast();
+        }
     }
+    
 
     public class MyMouseListener implements MouseListener {
 
@@ -424,7 +430,7 @@ public class GUI implements Observer {
                     }
                 }
                 if (!(card2 == null)) { //only print a card for player 2 if its not the first turn
-                    card2 = cardManager.pot.getLast();
+                    card2 = cardManager.pot.get(cardManager.pot.size() - 1);
                     player2CardDraw.setIcon(new ImageIcon(card2.getCardImage()));
                 }
             }
@@ -458,7 +464,8 @@ public class GUI implements Observer {
                 p1TotalCards.setText(cardManager.p1.size() + " Cards!");
                 p2TotalCards.setText(cardManager.p2.size() + " Cards!");
             }
-
+           // value1 = card1.getFaceValue();
+            value2 = card2.getFaceValue();
             compareValues(value1, value2);
         }
 

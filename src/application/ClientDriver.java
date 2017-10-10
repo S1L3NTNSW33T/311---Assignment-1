@@ -13,7 +13,7 @@ import java.awt.EventQueue;
  * @author Cameron Steinburg, Kevin Brown Solution provided in part by Maryam Moussavi 
  * 
  */
-public class AppDriver {
+public class ClientDriver {
 
     public static void main(String[] args) {
 
