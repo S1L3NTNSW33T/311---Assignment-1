@@ -360,7 +360,7 @@ public class GUI implements Observer {
                 connectMe();
             }
             if (e.getSource() == sendButton) {
-                Message message = new Message(userName, textField.getText(), new Date());
+                Message message = new Message(userName, textField.getText(), new Date(), null);
 
                 try {
                     oos.writeObject(message);
@@ -375,7 +375,7 @@ public class GUI implements Observer {
                 // if i hit this button, it means i want to quit and next time i connect,
                 // i will need to provide my username again
                 newSession = true;
-                Message message = new Message(userName, "has disconnected.", new Date());
+                Message message = new Message(userName, "has disconnected.", new Date(), null);
                 try {
                     oos.writeObject(message);
                 } catch (IOException e1) {
@@ -403,7 +403,8 @@ public class GUI implements Observer {
                             System.out.println(card1);
                             System.out.println(cardManager.pot.toString());
                             try {
-                                oos.writeObject(cardManager.pot);
+                                Message shit = new Message(null, null, null, cardManager.pot);
+                                oos.writeObject(shit);
                             } catch (IOException ex) {
                                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                             }

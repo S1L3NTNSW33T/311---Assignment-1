@@ -47,7 +47,7 @@ public class ClientHandler implements Runnable, Observer {
         t2.start();
 
         try {
-            Message m = new Message("Connected", "You can start chatting!", new Date());
+            Message m = new Message("Connected", "You can start chatting!", new Date(), null);
             // might be nice to know who i'm chatting to... like getUserName of some sort...
             oos1.writeObject(m);
             oos2.writeObject(m);

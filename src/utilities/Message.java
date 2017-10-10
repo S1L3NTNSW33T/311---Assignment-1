@@ -20,6 +20,7 @@ public class Message implements Serializable
 	private String 				user;
 	private String				message;
 	private Date				timeStamp;
+        private Object  object;
 	
 	//Constructors
 	/**
@@ -28,12 +29,14 @@ public class Message implements Serializable
 	 * @param message message being transported
 	 * @param timeStamp date and time stamp put on message
 	 */
-	public Message(String user, String message, Date timeStamp)
+	public Message(String user, String message, Date timeStamp, Object card)
 	{
 		this.user = user;
 		this.message = message;
 		this.timeStamp = timeStamp;
+                this.object = card;
 	}
+        
 	
 	//Getter and Setter Methods
 	/**
