@@ -62,7 +62,7 @@ public class GUI implements Observer {
     private JLabel p2TotalCards;
     private JButton sendButton;
 
-    private CardManager cardManager;
+    public CardManager cardManager;
 
     private Card card1 = null;
     private Card card2 = null;
@@ -280,6 +280,13 @@ public class GUI implements Observer {
         if (arg instanceof Message) {
 
             Message message = (Message) arg;
+
+            if (message.getMessage() == "") {
+
+                this.cardManager.pot = (LinkedList<Card>) message.getList();
+                card2 = cardManager.pot.getLast();
+            }
+            
             String msg = message.getUser() + ": " + message.getMessage() + " (" + message.getTimeStamp() + ")";
             textArea.append(msg + "\n");
 
@@ -297,12 +304,8 @@ public class GUI implements Observer {
                 disconnectMe(); // drop current session
                 connectMe(); // start new session
             }
-        } else if (arg instanceof LinkedList) {
-
-            this.cardManager.pot = (LinkedList<Card>) arg;
-            card2 = cardManager.pot.getLast();
-
         }
+
     }
 
     private void connectMe() {
@@ -403,7 +406,7 @@ public class GUI implements Observer {
                             System.out.println(card1);
                             System.out.println(cardManager.pot.toString());
                             try {
-                                Message shit = new Message(null, null, null, cardManager.pot);
+                                Message shit = new Message("", "", null, cardManager.pot);
                                 oos.writeObject(shit);
                             } catch (IOException ex) {
                                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);

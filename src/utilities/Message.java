@@ -86,6 +86,10 @@ public class Message implements Serializable
 	{
 		this.timeStamp = timeStamp;
 	}
+        
+        public Object getList(){
+            return this.object;
+        }
 
 	//Operational Methods
 	/* (non-Javadoc)
