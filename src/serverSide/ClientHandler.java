@@ -23,7 +23,7 @@ public class ClientHandler implements Runnable, Observer {
     //Constructors
     /**
      * @param cs1
-     * @param cs2
+     *  cs2
      */
     public ClientHandler(Socket cs1, Socket cs2) {
         this.cs1 = cs1;

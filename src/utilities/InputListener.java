@@ -67,9 +67,10 @@ public class InputListener extends Observable implements Runnable {
 
             while (true) {
                 Debug.output("input listener number " + listenerNumber);
-                Object o = ois.readObject();
+                Message o =(Message) ois.readObject();
                 
-               
+               if(!(o.getList() == null)){
+               }
                 setChanged();
                 notifyObservers(o);        
                 Message m = (Message) o;

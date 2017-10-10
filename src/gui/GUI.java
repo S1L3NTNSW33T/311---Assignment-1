@@ -281,13 +281,13 @@ public class GUI implements Observer {
 
             Message message = (Message) arg;
 
-            if (message.getList()!= null) {
+            if (message.getList() != null) {
 
                 this.cardManager.pot = (LinkedList<Card>) message.getList();
                 card2 = cardManager.pot.getLast();
                 System.out.println("here: " + cardManager.pot.getLast());
             }
-            
+
             String msg = message.getUser() + ": " + message.getMessage() + " (" + message.getTimeStamp() + ")";
             textArea.append(msg + "\n");
 
@@ -388,15 +388,19 @@ public class GUI implements Observer {
                 disconnectMe();
             }
         }
-        
-        public void update(){
-            card1 =  cardManager.pot.getLast();
-            card2 = cardManager.pot.getLast();
-        }
+
+       
     }
-    
 
     public class MyMouseListener implements MouseListener {
+        
+         public void update() {
+
+            if (cardManager.pot.size() > 2) {
+                card1 = cardManager.pot.getLast();
+            }
+            card2 = cardManager.pot.get(cardManager.pot.size() - 2);
+        }
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -427,12 +431,13 @@ public class GUI implements Observer {
                                 player1CardImg.setEnabled(false);
                             }
                         }
+                       // update();
                     }
                 }
-                if (!(card2 == null)) { //only print a card for player 2 if its not the first turn
-                    card2 = cardManager.pot.get(cardManager.pot.size() - 1);
-                    player2CardDraw.setIcon(new ImageIcon(card2.getCardImage()));
-                }
+               // if (!(card2 == null)) { //only print a card for player 2 if its not the first turn
+                //    card2 = cardManager.pot.get(cardManager.pot.size() - 1);
+                //    player2CardDraw.setIcon(new ImageIcon(card2.getCardImage()));
+               // }
             }
 
             /*         if (e.getSource() == player2CardImg) { //where player2 would have clicked before this was an online game
@@ -464,7 +469,7 @@ public class GUI implements Observer {
                 p1TotalCards.setText(cardManager.p1.size() + " Cards!");
                 p2TotalCards.setText(cardManager.p2.size() + " Cards!");
             }
-           // value1 = card1.getFaceValue();
+            // value1 = card1.getFaceValue();
             value2 = card2.getFaceValue();
             compareValues(value1, value2);
         }
