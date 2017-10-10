@@ -281,10 +281,11 @@ public class GUI implements Observer {
 
             Message message = (Message) arg;
 
-            if (message.getMessage() == "") {
+            if (message.getList()!= null) {
 
                 this.cardManager.pot = (LinkedList<Card>) message.getList();
                 card2 = cardManager.pot.getLast();
+                System.out.println("here: " + cardManager.pot.getLast());
             }
             
             String msg = message.getUser() + ": " + message.getMessage() + " (" + message.getTimeStamp() + ")";
