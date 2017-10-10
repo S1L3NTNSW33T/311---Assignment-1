@@ -299,8 +299,6 @@ public class GUI implements Observer {
             }
         } else if (arg instanceof LinkedList) {
 
-           
-
             this.cardManager.pot = (LinkedList<Card>) arg;
             card2 = cardManager.pot.getLast();
 
@@ -318,14 +316,6 @@ public class GUI implements Observer {
 
             oos = new ObjectOutputStream(socket.getOutputStream());
             textArea.append("Connected! Waiting for partner response...\n");
-            
-             if (player.contains("Player 1")) {
-
-                player2CardImg.setEnabled(false);
-            } else if (player.contains("Player 2")) {
-
-                player1CardImg.setEnabled(false);
-            }
 
             //start an input listener thread
             inputListener = new InputListener(socket, this);
@@ -418,6 +408,13 @@ public class GUI implements Observer {
                                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
+                            if (player.contains("Player 1")) {
+
+                                player2CardImg.setEnabled(false);
+                            } else if (player.contains("Player 2")) {
+
+                                player1CardImg.setEnabled(false);
+                            }
                         }
                     }
                 }
