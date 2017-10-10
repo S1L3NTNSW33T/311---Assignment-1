@@ -277,37 +277,32 @@ public class GUI implements Observer {
 
     @Override
     public void update(Observable observable, Object arg) {
+        if (arg instanceof Message) {
 
-        Message message = (Message) arg;
-        String msg = message.getUser() + ": " + message.getMessage() + " (" + message.getTimeStamp() + ")";
-        textArea.append(msg + "\n");
+            Message message = (Message) arg;
+            String msg = message.getUser() + ": " + message.getMessage() + " (" + message.getTimeStamp() + ")";
+            textArea.append(msg + "\n");
 
-        // connected to another person
-        if (message.getMessage().compareTo("You can start chatting!") == 0) {
-            player = message.getUser();
-            sendButton.setEnabled(true); // now i can TALK!
-            disconnectBtn.setEnabled(true); // and if i don't like the other person, i can run away!
-        }
-
-        // the other person ran away!
-        if (message.getMessage().compareTo("has disconnected.") == 0) {
-            // i didn't quit the session, so i get to keep my username
-            newSession = false;
-            disconnectMe(); // drop current session
-            connectMe(); // start new session
-        }
-
-        if (arg instanceof LinkedList) {
-
-            if (player.contains("Player 1")) {
-
-                player2CardImg.setEnabled(false);
-            } else if (player.contains("Player 2")) {
-
-                player1CardImg.setEnabled(false);
+            // connected to another person
+            if (message.getMessage().compareTo("You can start chatting!") == 0) {
+                player = message.getUser();
+                sendButton.setEnabled(true); // now i can TALK!
+                disconnectBtn.setEnabled(true); // and if i don't like the other person, i can run away!
             }
 
+            // the other person ran away!
+            if (message.getMessage().compareTo("has disconnected.") == 0) {
+                // i didn't quit the session, so i get to keep my username
+                newSession = false;
+                disconnectMe(); // drop current session
+                connectMe(); // start new session
+            }
+        } else if (arg instanceof LinkedList) {
+
+           
+
             this.cardManager.pot = (LinkedList<Card>) arg;
+            card2 = cardManager.pot.getLast();
 
         }
     }
@@ -323,6 +318,14 @@ public class GUI implements Observer {
 
             oos = new ObjectOutputStream(socket.getOutputStream());
             textArea.append("Connected! Waiting for partner response...\n");
+            
+             if (player.contains("Player 1")) {
+
+                player2CardImg.setEnabled(false);
+            } else if (player.contains("Player 2")) {
+
+                player1CardImg.setEnabled(false);
+            }
 
             //start an input listener thread
             inputListener = new InputListener(socket, this);
@@ -397,7 +400,7 @@ public class GUI implements Observer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(!connectBtn.isEnabled()){ //where the user draws a card
+            if (!connectBtn.isEnabled()) { //where the user draws a card
                 if (e.getSource() == player1CardImg) {
 
                     if (cardManager.p1.size() > 0) {
@@ -414,7 +417,7 @@ public class GUI implements Observer {
                             } catch (IOException ex) {
                                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
-  
+
                         }
                     }
                 }

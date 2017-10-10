@@ -72,16 +72,33 @@ public class ClientHandler implements Runnable, Observer {
     @Override
     public void update(Observable observable, Object arg) {
         InputListener listener = (InputListener) observable;
-        Message message = (Message) arg;
 
-        try {
-            if (listener.getListenerNumber() == 1) {
-                oos2.writeObject(message);
-            } else {
-                oos1.writeObject(message);
+        if (arg instanceof Message) {
+            Message message = (Message) arg;
+
+            try {
+                if (listener.getListenerNumber() == 1) {
+                    oos2.writeObject(message);
+                } else {
+                    oos1.writeObject(message);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            
+        } else if (arg instanceof LinkedList) {
+
+            try {
+                if (listener.getListenerNumber() == 1) {
+                    oos2.writeObject(arg);
+                } else {
+                    oos1.writeObject(arg);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
         }
+
     }
 }
